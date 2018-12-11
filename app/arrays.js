@@ -33,7 +33,18 @@ arraysAnswers = {
       return value !== item;
     })
   },
+  //This was missing from the repo but was showing in the test so I added it.
+  removeWithoutCopy : function(arr, item) {
 
+    for(var i=0; i<arr.length; i++) {
+      if(arr[i] == item) {
+        arr.splice(i,1);
+        i--;
+      }
+    };
+
+    return arr;
+  },
   /**
    * Adds a number, item, to the end of an array, arr.
    * 

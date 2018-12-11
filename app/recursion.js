@@ -17,8 +17,24 @@ recursionAnswers = {
    * @returns {Number[]} The files under the directory dirName, including subdiretories.
    */
   listFiles: function listFiles(data, dirName) {
-    
-  },
+      // base cases
+      if (dirName === '' && !data.subDirs.length) return data.files
+      if (dirName && !data.subDirs.length) return []
+
+      // recursive cases
+      if ((!dirName && data.subDirs.length) || (dirName === data.dirName)) {
+          const subDirsFiles = data.subDirs.flatMap(dir => listFiles(dir, ''))
+
+          return data.files.concat(subDirsFiles)
+      }
+
+      if (dirName && data.subDirs.length) {
+          const subDirs = data.subDirs.flatMap(dir => listFiles(dir, dirName))
+          return subDirs
+      }
+
+  return listFiles(data, dirName)
+},
 
   /**
    * Determines the fibonacci number at position n.
